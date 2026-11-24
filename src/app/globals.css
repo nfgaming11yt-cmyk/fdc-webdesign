@@ -1,0 +1,331 @@
+@import "tailwindcss";
+
+/* ── Design tokens: "Orbite" (Direction D) ─────────────────────────── */
+:root {
+  --ink: #0e0f12;
+  --paper: #f3f3ef;
+  --white: #ffffff;
+  --mist: #a7a8a3;
+  --steel: #55575c;
+  --graphite: #44464b;
+  --line: #deded8;
+  --blue: #2b4bff;
+  --volt: #c6f432;
+  --on-ink: #b9bab4;
+  --on-ink-dim: #8a8c91;
+}
+
+@theme inline {
+  --color-ink: var(--ink);
+  --color-paper: var(--paper);
+  --color-white: var(--white);
+  --color-mist: var(--mist);
+  --color-steel: var(--steel);
+  --color-graphite: var(--graphite);
+  --color-line: var(--line);
+  --color-blue: var(--blue);
+  --color-volt: var(--volt);
+  --color-on-ink: var(--on-ink);
+  --color-on-ink-dim: var(--on-ink-dim);
+  --font-sans: var(--font-inter-tight), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, monospace;
+}
+
+html {
+  background: var(--paper);
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--volt);
+  color: var(--ink);
+}
+
+:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+.on-ink :focus-visible,
+.on-ink:focus-visible {
+  outline-color: var(--volt);
+}
+
+/* ── Typography helpers ────────────────────────────────────────────── */
+.display {
+  font-weight: 400;
+  letter-spacing: -0.045em;
+  line-height: 0.98;
+}
+.label {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.container-x {
+  width: 100%;
+  max-width: 1280px;
+  margin-inline: auto;
+  padding-inline: 16px;
+}
+@media (min-width: 640px) {
+  .container-x {
+    padding-inline: 32px;
+  }
+}
+
+/* Decorative rings */
+.ring-deco {
+  position: absolute;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  pointer-events: none;
+}
+.on-ink .ring-deco {
+  border-color: rgba(255, 255, 255, 0.09);
+}
+
+/* ── Hero orbit ────────────────────────────────────────────────────── */
+.orbit {
+  --size: 760px;
+  position: relative;
+  width: var(--size);
+  height: var(--size);
+  flex: none;
+}
+.orbit-wrap {
+  height: 760px;
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+}
+@media (max-width: 800px) {
+  .orbit-wrap {
+    height: 400px;
+  }
+  .orbit {
+    transform: scale(0.5);
+    transform-origin: top center;
+  }
+}
+.orbit-dial {
+  position: absolute;
+  inset: 40px;
+  border-radius: 50%;
+  background: repeating-conic-gradient(from 0deg, var(--steel) 0deg 0.35deg, transparent 0.35deg 6deg);
+  -webkit-mask: radial-gradient(circle, transparent 0 calc(50% - 14px), #000 calc(50% - 13px) 50%, transparent calc(50% + 1px));
+  mask: radial-gradient(circle, transparent 0 calc(50% - 14px), #000 calc(50% - 13px) 50%, transparent calc(50% + 1px));
+  opacity: 0.55;
+  animation: spin 120s linear infinite reverse;
+}
+.orbit-track {
+  position: absolute;
+  inset: 0;
+  animation: spin 70s linear infinite;
+}
+.orbit-item {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 0;
+  height: 0;
+  transform: rotate(var(--a)) translateY(-300px) rotate(calc(-1 * var(--a)));
+}
+.orbit-card {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  animation: spin 70s linear infinite reverse;
+}
+@keyframes spin {
+  to {
+    rotate: 360deg;
+  }
+}
+
+/* Skeleton bars in the centre browser */
+.skel {
+  height: 10px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #ebebe6 0%, #f7f7f4 40%, #ebebe6 80%);
+  background-size: 200% 100%;
+  transform-origin: left center;
+  animation:
+    grow 2.4s cubic-bezier(0.2, 0.7, 0.2, 1) both,
+    shimmer 2.2s linear infinite;
+}
+@keyframes grow {
+  from {
+    transform: scaleX(0);
+  }
+}
+@keyframes shimmer {
+  to {
+    background-position: -200% 0;
+  }
+}
+
+/* ── Pulse dot ─────────────────────────────────────────────────────── */
+.pulse-dot {
+  position: relative;
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: var(--volt);
+  box-shadow: 0 0 0 1px rgba(14, 15, 18, 0.25);
+}
+.pulse-dot::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: var(--volt);
+  animation: ping 1.8s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+@keyframes ping {
+  75%,
+  100% {
+    transform: scale(2.6);
+    opacity: 0;
+  }
+}
+
+/* ── Marquee ───────────────────────────────────────────────────────── */
+.marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 38s linear infinite;
+}
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* ── Scroll reveal & stagger ──────────────────────────────────────── */
+.js .reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity 0.8s ease,
+    transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);
+  transition-delay: var(--d, 0ms);
+}
+.js .reveal.is-in {
+  opacity: 1;
+  transform: none;
+}
+
+.rise {
+  animation: rise 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  animation-delay: var(--d, 0ms);
+}
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+}
+.lift {
+  transition:
+    transform 0.35s cubic-bezier(0.2, 0.7, 0.2, 1),
+    box-shadow 0.35s ease;
+}
+.lift:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 24px 48px -28px rgba(14, 15, 18, 0.35);
+}
+
+/* ── Radar ─────────────────────────────────────────────────────────── */
+.radar-sweep {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: conic-gradient(from 0deg, rgba(43, 75, 255, 0.28), rgba(43, 75, 255, 0) 70deg, transparent 360deg);
+  animation: spin 6s linear infinite;
+}
+.radar-ping {
+  position: absolute;
+  inset: 0;
+  border-radius: 999px;
+  border: 1.5px solid var(--blue);
+  animation: radar-ping 2.4s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+@keyframes radar-ping {
+  from {
+    transform: scale(1);
+    opacity: 0.9;
+  }
+  to {
+    transform: scale(5);
+    opacity: 0;
+  }
+}
+
+/* ── Contact success ───────────────────────────────────────────────── */
+.pop {
+  animation: pop 0.6s cubic-bezier(0.2, 1.4, 0.4, 1) both;
+}
+@keyframes pop {
+  from {
+    opacity: 0;
+    transform: scale(0.92) translateY(8px);
+  }
+}
+
+/* FAQ */
+details > summary {
+  list-style: none;
+  cursor: pointer;
+}
+details > summary::-webkit-details-marker {
+  display: none;
+}
+details[open] .faq-plus {
+  transform: rotate(45deg);
+}
+
+/* Legal pages prose */
+.prose-legal h2 {
+  font-size: 1.5rem;
+  letter-spacing: -0.02em;
+  margin-top: 2.5rem;
+  margin-bottom: 0.75rem;
+  color: var(--ink);
+}
+.prose-legal p,
+.prose-legal li {
+  color: var(--graphite);
+  line-height: 1.65;
+  margin-bottom: 0.75rem;
+}
+.prose-legal ul {
+  list-style: disc;
+  padding-left: 1.25rem;
+}
+
+/* ── Reduced motion: disable everything ───────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+  .js .reveal {
+    opacity: 1;
+    transform: none;
+  }
+}
