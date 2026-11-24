@@ -26,9 +26,16 @@ export default function APropos() {
         </div>
         <div className="mt-14 grid items-start gap-10 lg:grid-cols-[1.3fr_1fr]">
           <div className="space-y-5 text-[18px] leading-[1.65] text-graphite">
-            <p>Bonjour, moi c’est Filip.</p>
-            <p className="rounded-[20px] border border-dashed border-steel/50 p-6 text-steel">
-              [Bio de Filip : parcours, pourquoi FDC Webdesign, ce qui le motive. À fournir par Filip.]
+            <p>Bonjour, moi c’est Filip. J’habite à Bierges, à Wavre, et je crée des sites web pour les indépendants et les PME du Brabant wallon et de Bruxelles.</p>
+            <p>
+              J’ai étudié l’informatique, et en parallèle de mes jobs étudiants, je construisais des sites web, d’abord pour le plaisir. C’est comme
+              ça que j’ai appris le développement web et le design d’interfaces : en créant, en testant, en recommençant jusqu’à ce que ce soit
+              propre.
+            </p>
+            <p>
+              Ce qui me motive, c’est de créer des choses qui servent vraiment. Le développement logiciel est ma passion, et FDC Webdesign est né
+              d’une idée simple : un artisan, un comptable ou un dentiste ne devrait pas avoir à se soucier de son site. Il doit être rapide, clair,
+              et vous amener des demandes. Moi, je m’occupe du reste.
             </p>
             <p>
               Quand vous travaillez avec FDC Webdesign, vous parlez toujours à la même personne : celle qui conçoit votre site, le met en ligne et
